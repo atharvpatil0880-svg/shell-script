@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atharv Patil — Cloud Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1220;
+    --surface:#111B2E;
+    --surface-2:#16233A;
+    --border:#22314A;
+    --text:#E8EDF5;
+    --muted:#8B96AC;
+    --teal:#5EEAD4;
+    --teal-dim:rgba(94,234,212,0.14);
+    --amber:#FBBF24;
+    --amber-dim:rgba(251,191,36,0.14);
+    --danger:#F87171;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --radius: 14px;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg:#F5F7FA;
+    --surface:#FFFFFF;
+    --surface-2:#EEF1F6;
+    --border:#DEE4EC;
+    --text:#101828;
+    --muted:#66707F;
+    --teal:#0D9488;
+    --teal-dim:rgba(13,148,136,0.10);
+    --amber:#B45309;
+    --amber-dim:rgba(180,83,9,0.10);
+    --danger:#DC2626;
+    --shadow: 0 10px 30px rgba(16,24,40,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    transition:background .3s ease, color .3s ease;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  ::selection{background:var(--teal-dim);color:var(--text);}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;max-width:1080px;margin:0 auto;
+  }
+  .nav-brand{
+    font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:0.2px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .dot-live{
+    width:8px;height:8px;border-radius:50%;background:var(--teal);
+    box-shadow:0 0 0 4px var(--teal-dim);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;} 50%{opacity:0.4;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dot-live{animation:none;}
+  }
+  .nav-links{display:flex;gap:26px;align-items:center;}
+  .nav-links a{
+    font-size:14px;color:var(--muted);text-decoration:none;font-weight:500;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .theme-toggle{
+    display:flex;align-items:center;gap:8px;
+    background:var(--surface-2);border:1px solid var(--border);
+    color:var(--text); font-family:var(--mono); font-size:12px;
+    padding:8px 12px;border-radius:100px;cursor:pointer;
+    transition:border-color .2s ease;
+  }
+  .theme-toggle:hover{border-color:var(--teal);}
+  .theme-toggle svg{width:14px;height:14px;}
+  .nav-mobile-links{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:72px 0 40px;position:relative;}
+  .status-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono); font-size:12px; color:var(--teal);
+    background:var(--teal-dim); border:1px solid color-mix(in srgb, var(--teal) 40%, transparent);
+    padding:6px 12px;border-radius:100px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:var(--display); font-size:clamp(36px,6vw,64px);
+    font-weight:700; line-height:1.05; margin:0 0 14px;
+    letter-spacing:-1px;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero .role{
+    font-family:var(--mono); font-size:clamp(14px,2vw,18px); color:var(--muted);
+    margin:0 0 20px;
+  }
+  .hero .role::before{content:"$ ";color:var(--amber);}
+  .hero p.summary{
+    max-width:640px;color:var(--muted);font-size:16px;margin-bottom:32px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;
+    text-decoration:none;border:1px solid transparent;cursor:pointer;
+    transition:transform .15s ease, border-color .2s ease, background .2s ease;
+    font-family:var(--body);
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--teal);color:#04211D;}
+  html[data-theme="light"] .btn-primary{color:#F5FFFC;}
+  .btn-secondary{background:transparent;border-color:var(--border);color:var(--text);}
+  .btn-secondary:hover{border-color:var(--teal);}
+  .btn svg{width:16px;height:16px;}
+
+  .stat-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;background:var(--surface);
+  }
+  .stat{
+    padding:20px 18px;border-right:1px solid var(--border);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{
+    font-family:var(--mono);font-size:26px;font-weight:600;color:var(--teal);
+    display:block;
+  }
+  .stat .label{font-size:12.5px;color:var(--muted);margin-top:4px;display:block;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0;border-top:1px solid var(--border);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;color:var(--amber);
+    text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"//";color:var(--muted);}
+  h2.section-title{
+    font-family:var(--display);font-size:clamp(26px,3.4vw,36px);
+    font-weight:700;margin:0 0 8px;letter-spacing:-0.5px;
+  }
+  .section-sub{color:var(--muted);max-width:600px;margin-bottom:40px;font-size:15px;}
+
+  /* ---------- WHY HIRE ME (status checks) ---------- */
+  .check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .check-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;display:flex;gap:14px;
+  }
+  .check-icon{
+    flex:none;width:34px;height:34px;border-radius:8px;
+    background:var(--teal-dim);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .check-card h3{margin:2px 0 6px;font-size:15.5px;font-family:var(--display);}
+  .check-card p{margin:0;color:var(--muted);font-size:14px;}
+
+  /* ---------- KEY STRENGTHS ---------- */
+  .strength-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .strength-card{
+    padding:20px;border-radius:var(--radius);border:1px solid var(--border);
+    background:var(--surface);text-align:left;
+  }
+  .strength-card .icon{color:var(--amber);width:22px;height:22px;margin-bottom:14px;}
+  .strength-card h3{font-size:14.5px;margin:0 0 6px;font-family:var(--display);}
+  .strength-card p{font-size:13px;color:var(--muted);margin:0;}
+
+  /* ---------- SKILLS DASHBOARD ---------- */
+  .skills-panel{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px 28px 8px;
+  }
+  .skill-row{margin-bottom:22px;}
+  .skill-row-head{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;
+  }
+  .skill-row-head .name{font-weight:600;font-size:14.5px;}
+  .skill-row-head .level{font-family:var(--mono);font-size:11.5px;color:var(--muted);}
+  .meter{
+    height:7px;border-radius:100px;background:var(--surface-2);overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .meter-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--teal),var(--amber));}
+  .softskill-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;}
+  .tag{
+    font-family:var(--mono);font-size:12px;padding:7px 12px;border-radius:8px;
+    background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+  }
+
+  /* ---------- CERTIFICATIONS ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .cert-card{
+    border:1px dashed var(--border);border-radius:var(--radius);padding:20px;
+    background:var(--surface);display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .cert-card h3{font-size:14.5px;margin:0 0 4px;font-family:var(--display);}
+  .cert-card p{margin:0;color:var(--muted);font-size:13px;}
+  .cert-status{
+    font-family:var(--mono);font-size:11px;padding:5px 10px;border-radius:100px;
+    background:var(--amber-dim);color:var(--amber);white-space:nowrap;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .project-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;display:flex;flex-direction:column;height:100%;
+  }
+  .project-card .stack{
+    font-family:var(--mono);font-size:11px;color:var(--teal);margin-bottom:12px;
+    letter-spacing:.3px;
+  }
+  .project-card h3{font-family:var(--display);font-size:16.5px;margin:0 0 10px;}
+  .project-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.3px;flex:1;}
+  .project-card li{margin-bottom:6px;}
+  .project-date{
+    margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted);
+    border-top:1px solid var(--border);padding-top:12px;
+  }
+
+  .achv-list{margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .achv-item{
+    display:flex;gap:12px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--border);border-radius:10px;padding:16px;
+  }
+  .achv-item svg{flex:none;width:18px;height:18px;color:var(--amber);margin-top:2px;}
+  .achv-item p{margin:0;font-size:13.8px;color:var(--text);}
+  .achv-item .achv-year{color:var(--muted);font-family:var(--mono);font-size:11px;}
+
+  /* ---------- PIPELINE / INTERNSHIP TIMELINE ---------- */
+  .pipeline{
+    display:flex;border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;background:var(--surface);
+  }
+  .pipeline-stage{
+    flex:1;padding:22px;position:relative;border-right:1px solid var(--border);
+  }
+  .pipeline-stage:last-child{border-right:none;}
+  .pipeline-stage::after{
+    content:"";position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+    width:8px;height:8px;background:var(--teal);border-radius:50%;
+    box-shadow:0 0 0 4px var(--bg);
+  }
+  .pipeline-stage:last-child::after{display:none;}
+  .pipeline-stage .stage-label{
+    font-family:var(--mono);font-size:11px;color:var(--teal);text-transform:uppercase;
+    letter-spacing:1px;margin-bottom:8px;display:block;
+  }
+  .pipeline-stage h3{margin:0 0 8px;font-size:14.5px;font-family:var(--display);}
+  .pipeline-stage p{margin:0;color:var(--muted);font-size:13px;}
+
+  /* ---------- TIMELINE (leadership / education) ---------- */
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{
+    content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border);
+  }
+  .timeline-item{position:relative;padding-bottom:28px;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{
+    content:"";position:absolute;left:-28px;top:4px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--teal);
+  }
+  .timeline-item .t-year{font-family:var(--mono);font-size:11.5px;color:var(--muted);}
+  .timeline-item h3{margin:4px 0 4px;font-size:15px;font-family:var(--display);}
+  .timeline-item p{margin:0;color:var(--muted);font-size:13.6px;}
+
+  /* ---------- RECOMMENDATIONS EMPTY STATE ---------- */
+  .empty-card{
+    border:1px dashed var(--border);border-radius:var(--radius);
+    padding:36px;text-align:center;color:var(--muted);background:var(--surface);
+  }
+  .empty-card svg{width:26px;height:26px;color:var(--muted);margin-bottom:12px;}
+  .empty-card p{margin:0;font-size:14px;}
+  .empty-card .small{font-family:var(--mono);font-size:12px;margin-top:6px;color:var(--muted);opacity:.8;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{padding:64px 0 40px;border-top:1px solid var(--border);}
+  .contact-panel{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:40px;text-align:center;
+  }
+  .contact-panel h2{font-family:var(--display);font-size:clamp(24px,3vw,32px);margin:0 0 10px;}
+  .contact-panel p{color:var(--muted);margin:0 0 28px;}
+  .contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;}
+  .contact-link{
+    display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:10px;
+    background:var(--surface-2);border:1px solid var(--border);text-decoration:none;
+    font-size:13.5px;font-weight:600;color:var(--text);transition:border-color .2s ease, transform .15s ease;
+  }
+  .contact-link:hover{border-color:var(--teal);transform:translateY(-2px);}
+  .contact-link svg{width:16px;height:16px;color:var(--teal);}
+  .footer-note{text-align:center;color:var(--muted);font-size:12.5px;margin-top:36px;font-family:var(--mono);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .stat-strip{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:none;}
+    .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid var(--border);}
+    .check-grid, .strength-grid, .cert-grid, .project-grid, .achv-list{grid-template-columns:1fr;}
+    .pipeline{flex-direction:column;}
+    .pipeline-stage{border-right:none;border-bottom:1px solid var(--border);}
+    .pipeline-stage:last-child{border-bottom:none;}
+    .pipeline-stage::after{right:auto;left:50%;top:auto;bottom:-1px;transform:translate(-50%,50%);}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="dot-live"></span> Atharv Patil</div>
+    <nav class="nav-links">
+      <a href="#why">Why Hire Me</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark and light theme">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="status-pill"><span class="dot-live"></span> status: open to Cloud Engineer roles · Pune / Mumbai</div>
+    <h1>Atharv Patil<br><span>Cloud Engineer</span>, fresher.</h1>
+    <p class="role">deploy --target=aws --role=cloud-engineer --location=pune,mumbai</p>
+    <p class="summary">Hands-on with Linux, shell scripting, networking, and AWS core services (EC2, S3, IAM, VPC) — built through a structured cloud internship and independent serverless projects. Comfortable with Git-based workflows and looking to bring that foundation to a full-time Cloud Engineer / Cloud Support Engineer seat.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="mailto:atharvpatil0880@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M4 4l8 8 8-8"></path></svg>
+        Email Me
+      </a>
+      <a class="btn btn-secondary" href="https://wa.me/919356846952" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 1 1-4.24-7.36L21 3l-1.1 3.9A8.46 8.46 0 0 1 21 11.5z"></path></svg>
+        WhatsApp
+      </a>
+      <a class="btn btn-secondary" href="tel:+919356846952">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"></path></svg>
+        Call
+      </a>
+      <a class="btn btn-secondary" href="#" id="linkedinLink" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle><path d="M8 9h4v2a4 4 0 0 1 8 0v10h-4v-9a2 2 0 0 0-4 0v9H8z"></path></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><span class="num">6mo</span><span class="label">AWS internship @ CloudBlitz</span></div>
+      <div class="stat"><span class="num">03</span><span class="label">Cloud &amp; systems projects</span></div>
+      <div class="stat"><span class="num">04</span><span class="label">Core AWS services hands-on</span></div>
+      <div class="stat"><span class="num">7.57</span><span class="label">B.Tech CGPA</span></div>
+    </div>
+  </section>
+
+  <!-- WHY HIRE ME -->
+  <section id="why">
+    <div class="eyebrow">health checks</div>
+    <h2 class="section-title">Why hire me</h2>
+    <p class="section-sub">Four things a recruiter can verify in under a minute.</p>
+    <div class="check-grid">
+      <div class="check-card">
+        <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <div><h3>Real AWS hands-on, not just theory</h3><p>Six months of guided labs on EC2, S3, IAM and VPC under practicing cloud professionals — then applied independently in two serverless builds.</p></div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <div><h3>Comfortable below the abstraction layer</h3><p>Built a Java packet-inspection engine parsing raw bytes across Ethernet, IP and TCP — the kind of low-level troubleshooting instinct that transfers straight to cloud support.</p></div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <div><h3>Security-minded by default</h3><p>Applied least-privilege IAM roles between API Gateway, Lambda and DynamoDB — thinking about access control before it's asked for.</p></div>
+      </div>
+      <div class="check-card">
+        <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"></path></svg></div>
+        <div><h3>Led while still learning</h3><p>Vice President and Treasurer of a 100+ member student association, and coordinator for an international tech conference — proof I can own outcomes, not just tasks.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY STRENGTHS -->
+  <section>
+    <div class="eyebrow">key strengths</div>
+    <h2 class="section-title">What I bring to the team</h2>
+    <div class="strength-grid">
+      <div class="strength-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15a4 4 0 0 1 4-4h1a5 5 0 0 1 9.6-1.5A4 4 0 0 1 21 13.5"></path><path d="M8 19h8"></path></svg>
+        <h3>Cloud infrastructure</h3><p>EC2, S3, IAM, VPC fundamentals with real lab exposure.</p>
+      </div>
+      <div class="strength-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M9 9h.01M15 9h.01M9 15h6"></path></svg>
+        <h3>Linux &amp; scripting</h3><p>Day-to-day comfort in the shell, from navigation to automation.</p>
+      </div>
+      <div class="strength-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="12" r="2.5"></circle><path d="M6 8.5v7M8 6.5l7.5 4M8 17.5l7.5-4"></path></svg>
+        <h3>Version control</h3><p>Collaborative Git workflows across GitHub and GitLab.</p>
+      </div>
+      <div class="strength-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 5l8 5-8 5M12 19V9M20 19V13"></path></svg>
+        <h3>Troubleshooting mindset</h3><p>Built things from byte-level packets up to full serverless stacks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS DASHBOARD -->
+  <section id="skills">
+    <div class="eyebrow">skills dashboard</div>
+    <h2 class="section-title">Resource utilization</h2>
+    <p class="section-sub">Self-rated proficiency, honestly — I'm a fresher, and I'd rather show you where I'm strong than inflate the rest.</p>
+    <div class="skills-panel">
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">AWS — EC2, S3, IAM, VPC</span><span class="level">working knowledge</span></div>
+        <div class="meter"><div class="meter-fill" style="width:70%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">Linux</span><span class="level">strong</span></div>
+        <div class="meter"><div class="meter-fill" style="width:78%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">Shell scripting</span><span class="level">strong</span></div>
+        <div class="meter"><div class="meter-fill" style="width:75%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">Networking fundamentals</span><span class="level">working knowledge</span></div>
+        <div class="meter"><div class="meter-fill" style="width:68%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">Git / GitHub / GitLab</span><span class="level">strong</span></div>
+        <div class="meter"><div class="meter-fill" style="width:80%;"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-head"><span class="name">Java</span><span class="level">working knowledge</span></div>
+        <div class="meter"><div class="meter-fill" style="width:65%;"></div></div>
+      </div>
+      <div class="skill-row" style="margin-bottom:6px;">
+        <div class="skill-row-head"><span class="name">SDLC</span><span class="level">working knowledge</span></div>
+        <div class="meter"><div class="meter-fill" style="width:60%;"></div></div>
+      </div>
+      <div class="softskill-tags">
+        <span class="tag">Teamwork &amp; Collaboration</span>
+        <span class="tag">Communication</span>
+        <span class="tag">Leadership</span>
+        <span class="tag">Adaptability</span>
+        <span class="tag">Decision Making</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section>
+    <div class="eyebrow">certifications &amp; learning</div>
+    <h2 class="section-title">In the pipeline</h2>
+    <p class="section-sub">No certifications issued yet — here's what's actively in progress. Update this section as soon as you clear an exam.</p>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div><h3>AWS Certified Cloud Practitioner</h3><p>Foundational AWS certification — study in progress</p></div>
+        <span class="cert-status">in progress</span>
+      </div>
+      <div class="cert-card">
+        <div><h3>Hands-on Docker &amp; Kubernetes practice</h3><p>Self-directed labs building on internship fundamentals</p></div>
+        <span class="cert-status">ongoing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="eyebrow">projects &amp; achievements</div>
+    <h2 class="section-title">Things I've actually shipped</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <span class="stack">AWS Lambda · API Gateway · DynamoDB</span>
+        <h3>Serverless Task Management App</h3>
+        <ul>
+          <li>Zero backend server provisioning for full task CRUD lifecycle.</li>
+          <li>RESTful APIs in API Gateway connecting frontend requests to event-driven Lambda functions.</li>
+          <li>DynamoDB tables tuned for fast, scalable read/write at lower cost than a server-based deploy.</li>
+        </ul>
+        <div class="project-date">May 2026</div>
+      </div>
+      <div class="project-card">
+        <span class="stack">AWS Lambda · API Gateway · IAM · DynamoDB</span>
+        <h3>Serverless Registration Form</h3>
+        <ul>
+          <li>Fully serverless registration system, no dedicated server infrastructure.</li>
+          <li>Lambda functions validating input and enforcing business logic, backed by DynamoDB.</li>
+          <li>Least-privilege IAM roles securing every resource-to-resource call.</li>
+        </ul>
+        <div class="project-date">Mar 2026</div>
+      </div>
+      <div class="project-card">
+        <span class="stack">Java · Multithreading · TCP/IP</span>
+        <h3>DPI Engine — Deep Packet Inspection</h3>
+        <ul>
+          <li>Identifies applications and sites from PCAP captures, including encrypted HTTPS, without decrypting data.</li>
+          <li>Byte-level parsing across Ethernet, IP and TCP, with TLS Client Hello (SNI) extraction.</li>
+          <li>5-tuple flow tracking plus a multithreaded Reader → Load Balancer → Fast Path → Writer pipeline.</li>
+        </ul>
+        <div class="project-date">Sep 2025</div>
+      </div>
+    </div>
+
+    <div class="achv-list">
+      <div class="achv-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"></path><path d="M5 4H3v2a4 4 0 0 0 4 4M19 4h2v2a4 4 0 0 1-4 4"></path></svg>
+        <p>First Prize, EEDP — Project: Smart Helmet<br><span class="achv-year">Institute-level engineering design competition</span></p>
+      </div>
+      <div class="achv-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"></path></svg>
+        <p>Smart India Hackathon 2023 — secured institute-level position<br><span class="achv-year">National innovation hackathon</span></p>
+      </div>
+      <div class="achv-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <p>Coordinator, ICONAT — Third International Conference on Advancement in Technology<br><span class="achv-year">Cross-team event coordination</span></p>
+      </div>
+      <div class="achv-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"></circle><path d="M9 14 6 22l6-3 6 3-3-8"></path></svg>
+        <p>Vice President, CSITE RIT Student Association<br><span class="achv-year">2025–26 · previously Treasurer, 2024–25</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNSHIP PIPELINE -->
+  <section id="experience">
+    <div class="eyebrow">internship experience</div>
+    <h2 class="section-title">CloudBlitz — Cloud Computing Intern</h2>
+    <p class="section-sub">Jan 2026 – Jul 2026 · a structured, mentor-led build of cloud fundamentals.</p>
+    <div class="pipeline">
+      <div class="pipeline-stage">
+        <span class="stage-label">stage 01 · train</span>
+        <h3>Structured onboarding</h3>
+        <p>Six months combining guided instruction with practical exposure to AWS infrastructure under experienced cloud mentors.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-label">stage 02 · build</span>
+        <h3>Core services in practice</h3>
+        <p>Hands-on labs and real-world use cases across EC2 compute, S3 storage, and IAM access management.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-label">stage 03 · support</span>
+        <h3>Shadowed live infrastructure</h3>
+        <p>Assisted senior engineers on cloud infra and support tasks — how AWS services actually get deployed and managed day-to-day.</p>
+      </div>
+      <div class="pipeline-stage">
+        <span class="stage-label">stage 04 · document</span>
+        <h3>Knowledge continuity</h3>
+        <p>Documented processes, configurations, and best practices to support team onboarding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP + EDUCATION -->
+  <section>
+    <div class="eyebrow">leadership &amp; education</div>
+    <h2 class="section-title">Track record</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="t-year">2025 – 2026</span>
+        <h3>Vice President, CSITE RIT Student Association</h3>
+        <p>Stepped up from Treasurer to VP, taking on broader ownership of the department's student body.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="t-year">2024 – 2025</span>
+        <h3>Treasurer, CSITE RIT Student Association</h3>
+        <p>Managed association finances and budgeting for department events.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="t-year">2026</span>
+        <h3>B.Tech, Computer Science &amp; IT — CGPA 7.57</h3>
+        <p>Rajarambapu Institute of Technology, Rajaramnagar, Sakharale</p>
+      </div>
+      <div class="timeline-item">
+        <span class="t-year">2022</span>
+        <h3>HSC, Maharashtra State Board — 68.83%</h3>
+        <p>Jaysingpur College, Jaysingpur</p>
+      </div>
+      <div class="timeline-item">
+        <span class="t-year">2020</span>
+        <h3>SSC, Maharashtra State Board — 96.20%</h3>
+        <p>Janatara Kalpvruksha Vidyamandir, Jaysingpur</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER GOALS -->
+  <section>
+    <div class="eyebrow">career goals</div>
+    <h2 class="section-title">Where I'm headed</h2>
+    <p class="section-sub" style="margin-bottom:0;">Targeting an entry-level Cloud Engineer or Cloud Support Engineer role at an MNC in Pune or Mumbai, full-time — applying AWS, Linux and networking fundamentals to keep real infrastructure running and to grow toward Docker, Kubernetes and Terraform as I take on more responsibility.</p>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <div class="eyebrow">recommendations</div>
+    <h2 class="section-title">Testimonials</h2>
+    <div class="empty-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin:0 auto;display:block;"><path d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 1 1-9-9c4.97 0 9 3.5 9 8.5z"></path></svg>
+      <p>No recommendations logged yet.</p>
+      <p class="small">// this space is reserved for mentor and manager references — check back after the next role.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Let's talk.</h2>
+      <p>Based in Pune, Maharashtra — open to Cloud Engineer roles in Pune and Mumbai.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:atharvpatil0880@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"></path><path d="M4 4l8 8 8-8"></path></svg>
+          atharvpatil0880@gmail.com
+        </a>
+        <a class="contact-link" href="tel:+919356846952">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"></path></svg>
+          +91 93568 46952
+        </a>
+        <a class="contact-link" href="https://wa.me/919356846952" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 1 1-4.24-7.36L21 3l-1.1 3.9A8.46 8.46 0 0 1 21 11.5z"></path></svg>
+          WhatsApp
+        </a>
+        <a class="contact-link" href="#" id="linkedinLink2" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle><path d="M8 9h4v2a4 4 0 0 1 8 0v10h-4v-9a2 2 0 0 0-4 0v9H8z"></path></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <p class="footer-note">build passing · last deployed August 2026 · Atharv Patil</p>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const label = document.getElementById('themeLabel');
+  const icon = document.getElementById('themeIcon');
+  const sun = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  const moon = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>';
+
+  function applyTheme(theme){
+    html.setAttribute('data-theme', theme);
+    label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+    icon.innerHTML = theme === 'dark' ? sun : moon;
+  }
+
+  applyTheme('dark');
+
+  toggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  // LinkedIn placeholder — update href below with your real profile URL
+  const linkedinUrl = "https://www.linkedin.com/in/your-profile-here";
+  document.getElementById('linkedinLink').href = linkedinUrl;
+  document.getElementById('linkedinLink2').href = linkedinUrl;
+</script>
+
+</body>
+</html>
